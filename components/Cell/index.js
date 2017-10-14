@@ -5,7 +5,7 @@ export default class Cell extends React.Component {
   static propTypes = {
     player: string,
     handleClick: func,
-    position: number
+    position: number,
   }
 
   renderContent() {

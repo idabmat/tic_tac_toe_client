@@ -15,7 +15,7 @@ describe('App', () => {
       const emptyBoard = [
         [null, null, null],
         [null, null, null],
-        [null, null, null]
+        [null, null, null],
       ]
       expect(wrapper.state().board).toEqual(emptyBoard)
     })

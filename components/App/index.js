@@ -10,7 +10,7 @@ export default class App extends React.Component {
         [null, null, 'player1'],
         [null, null, 'computer'],
         [null, null, null]
-      ]
+      ],
     }
   }
 

@@ -8,7 +8,9 @@
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "semi": ["error", "never"],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "only-multiline"]
   },
   "env": {
     "browser": true,

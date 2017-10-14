@@ -6,7 +6,7 @@ export default class Grid extends React.Component {
 
   static propTypes = {
     board: array,
-    cellClicked: func
+    cellClicked: func,
   }
 
   renderRows() {
@@ -28,7 +28,7 @@ export default class Grid extends React.Component {
           player={ cell }
           position={ position }
           handleClick={ this.cellClicked.bind(this) }
-          />
+        />
       )
     })
   }
