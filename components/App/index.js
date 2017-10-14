@@ -7,8 +7,8 @@ export default class App extends React.Component {
     this.state = {
       currentPlayer: null,
       board: [
-        [null, null, 'player1'],
-        [null, null, 'computer'],
+        [null, null, null],
+        [null, null, null],
         [null, null, null]
       ],
     }
