@@ -47,10 +47,16 @@ export default class Grid extends React.Component {
 
   render() {
     return (
-      <table style={{margin: 'auto', borderCollapse: 'collapse'}}>
+      <table className="grid">
         <tbody>
           { this.renderRows() }
         </tbody>
+        <style jsx>{`
+          .grid {
+            margin: 0 auto;
+            border-collapse: collapse;
+          }
+        `}</style>
       </table>
     )
   }

@@ -1,4 +1,4 @@
 {
-  "presets": ["next/babel", "es2015", "react"],
-  "plugins": ["transform-class-properties"]
+  "presets": ["next/babel", ["es2015", {"modules": false}], "react"],
+  "plugins": ["transform-class-properties", "styled-jsx/babel"]
 }
