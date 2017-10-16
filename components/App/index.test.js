@@ -1,10 +1,8 @@
 import React from 'react'
 import '../../config/setupTests'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import App from '.'
-
-const NOOP = (e) => e
 
 describe('App', () => {
   let wrapper, mock
@@ -32,25 +30,23 @@ describe('App', () => {
     })
 
     afterEach(() => {
+      channelMock.verify
       channelMock.restore()
     })
 
     it('newGame pushes new_game message to the socket', () => {
       channelMock.expects('push').withArgs('new_game')
       wrapper.instance().newGame()
-      channelMock.verify
     })
 
     it('computerMove pushes computer_move message to the socket', () => {
       channelMock.expects('push').withArgs('computer_move')
       wrapper.instance().computerMove()
-      channelMock.verify
     })
 
     it('handleCellClicked pushes player_move message to the socket', () => {
       channelMock.expects('push').withArgs('player_move', 3)
       wrapper.instance().handleCellClicked(3)
-      channelMock.verify
     })
   })
 
@@ -72,6 +68,22 @@ describe('App', () => {
       const computerMoveStub = sinon.stub(App.prototype, 'computerMove')
       wrapper.instance().updateState(gameState)
       expect(computerMoveStub.calledOnce).toEqual(true)
+    })
+  })
+
+  describe('renderOverlay', () => {
+    it('renders the Overlay before game starts', () => {
+      expect(wrapper.instance().renderOverlay()).toBeDefined
+    })
+
+    it('renders the Overlay if a winner is set', () => {
+      wrapper.setState({ winner: 'computer' })
+      expect(wrapper.instance().renderOverlay()).toBeDefined
+    })
+
+    it('does not render the Overlay if there is no winner', () => {
+      wrapper.setState({ winner: null })
+      expect(wrapper.instance().renderOverlay()).toBeUndefined
     })
   })
 })

@@ -10,13 +10,7 @@ export default class Grid extends React.Component {
   }
 
   renderRows() {
-    return this.props.board.map((row, rowIndex) => {
-      return(
-        <tr key={rowIndex}>
-          {this.renderCells(row, rowIndex)}
-        </tr>
-      )
-    })
+    return this.props.board.map((row, rowIndex) => this.renderCells(row, rowIndex))
   }
 
   renderCells(row, rowIndex) {
@@ -24,7 +18,7 @@ export default class Grid extends React.Component {
       const position = this.positionFromIndexes(rowIndex, columnIndex)
       return (
         <Cell
-          key={ columnIndex }
+          key={ position }
           player={ cell }
           position={ position }
           handleClick={ this.cellClicked.bind(this) }
@@ -47,17 +41,26 @@ export default class Grid extends React.Component {
 
   render() {
     return (
-      <table className="grid">
-        <tbody>
-          { this.renderRows() }
-        </tbody>
+      <div className="grid">
+        { this.renderRows() }
         <style jsx>{`
           .grid {
-            margin: 0 auto;
-            border-collapse: collapse;
+            height: 300px;
+            width: 300px;
+            display: grid;
+            grid: repeat(3, 1fr) / repeat(3, 1fr);
+            grid-gap: 10px;
+            margin: 34px auto;
+          }
+          @media only screen and (min-width: 768px) {
+            .grid {
+              margin: 16px auto;
+              height: 600px;
+              width: 600px;
+            }
           }
         `}</style>
-      </table>
+      </div>
     )
   }
 }

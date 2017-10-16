@@ -37,4 +37,23 @@ describe('Cell', () => {
       expect(stub.calledWith(5)).toEqual(true)
     })
   })
+
+  describe('styles', () => {
+    it('default to cell', () => {
+      const classnames = wrapper.instance().styles()
+      expect(classnames).toEqual("cell")
+    })
+
+    it('when clicked by computer', () => {
+      wrapper.setProps({player: 'computer'})
+      const classnames = wrapper.instance().styles()
+      expect(classnames).toEqual("cell clicked computer")
+    })
+
+    it('when clicked by player', () => {
+      wrapper.setProps({player: 'player1'})
+      const classnames = wrapper.instance().styles()
+      expect(classnames).toEqual("cell clicked player")
+    })
+  })
 })
