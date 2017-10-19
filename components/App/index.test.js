@@ -86,4 +86,35 @@ describe('App', () => {
       expect(wrapper.instance().renderOverlay()).toBeUndefined
     })
   })
+
+  describe('connects to websocket after component mounted', () => {
+    let createSocketStub, connectStub, channelStub
+
+    beforeEach(() => {
+      connectStub = sinon.stub()
+      channelStub = sinon.stub()
+      createSocketStub = sinon.stub(App.prototype, 'createSocket')
+        .returns({
+          connect: connectStub,
+          channel: channelStub
+        })
+      wrapper = mount(<App />)
+    })
+
+    afterEach(() => {
+      createSocketStub.restore()
+    })
+
+    it('calls the createSocket function', () => {
+      expect(createSocketStub.called).toBe(true)
+    })
+
+    it('connects to the socket', () => {
+      expect(connectStub.called).toBe(true)
+    })
+
+    it('creates a channel', () => {
+      expect(channelStub.calledWith('game:new', {})).toBe(true)
+    })
+  })
 })

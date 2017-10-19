@@ -16,9 +16,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = new Socket('ws://localhost:4000/socket')
+    this.socket = this.createSocket()
     this.socket.connect()
     this.channel = this.socket.channel('game:new', {})
+  }
+
+  createSocket() {
+    return new Socket('ws://localhost:4000/socket')
   }
 
   startGame() {
