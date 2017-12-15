@@ -14,8 +14,8 @@ export default class Overlay extends React.Component {
     handleClick: NOOP
   }
 
-  handleClick() {
-    this.props.handleClick()
+  handleClick(gameMode) {
+    this.props.handleClick(gameMode)
   }
 
   renderWinner() {
@@ -35,7 +35,13 @@ export default class Overlay extends React.Component {
         {this.renderWinner()}
         <Button
           handleClick={this.handleClick.bind(this)}
-          name="Start game"
+          gameMode="original"
+          name="Original game"
+        />
+        <Button
+          handleClick={this.handleClick.bind(this)}
+          gameMode="notakto"
+          name="Notakto game"
         />
         <style jsx>{`
           .overlay {

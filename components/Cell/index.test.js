@@ -27,6 +27,10 @@ describe('Cell', () => {
       wrapper.setProps({ player: 'computer' })
       expect(wrapper.instance().renderContent()).toEqual('O')
     })
+    it('returns X for computer when game mode is Notakto', () => {
+      wrapper.setProps({ gameMode: 'notakto', player: 'computer' })
+      expect(wrapper.instance().renderContent()).toEqual('X')
+    })
   })
 
   describe('onClick', () => {

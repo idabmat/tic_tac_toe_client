@@ -4,6 +4,7 @@ import classnames from 'classnames'
 
 export default class Cell extends React.Component {
   static propTypes = {
+    gameMode: string,
     player: string,
     handleClick: func,
     position: number,
@@ -11,7 +12,8 @@ export default class Cell extends React.Component {
 
   renderContent() {
     const player = this.props.player
-    if (player === 'player1') {
+    const gameMode = this.props.gameMode
+    if (player === 'player1' || gameMode === 'notakto') {
       return 'X'
     } else if (player === 'computer') {
       return 'O'

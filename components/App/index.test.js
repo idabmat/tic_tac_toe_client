@@ -35,8 +35,8 @@ describe('App', () => {
     })
 
     it('newGame pushes new_game message to the socket', () => {
-      channelMock.expects('push').withArgs('new_game')
-      wrapper.instance().newGame()
+      channelMock.expects('push').withArgs('new_game', 'original')
+      wrapper.instance().newGame('original')
     })
 
     it('computerMove pushes computer_move message to the socket', () => {

@@ -8,7 +8,8 @@ export default class Button extends React.Component {
   }
 
   handleClick() {
-    this.props.handleClick()
+    const gameMode = this.props.gameMode
+    this.props.handleClick(gameMode)
   }
 
   render() {

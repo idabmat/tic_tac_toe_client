@@ -12,6 +12,7 @@ export default class App extends React.Component {
         [null, null, null],
         [null, null, null]
       ],
+      gameMode: null
     }
   }
 
@@ -25,14 +26,15 @@ export default class App extends React.Component {
     return new Socket('ws://localhost:4000/socket')
   }
 
-  startGame() {
+  startGame(gameMode) {
     this.channel.join()
+    this.channel.push('new_game', gameMode)
     this.channel.on('game_state', (gameState) => this.updateState(gameState))
     this.channel.push('get_state')
   }
 
-  newGame() {
-    this.channel.push('new_game')
+  newGame(gameMode) {
+    this.channel.push('new_game', gameMode)
   }
 
   updateState(gameState) {
@@ -63,7 +65,7 @@ export default class App extends React.Component {
     return(
       <div className="appContainer">
         {this.renderOverlay()}
-        <Grid board={ this.state.board } cellClicked={ this.handleCellClicked.bind(this) }/>
+        <Grid board={ this.state.board } cellClicked={ this.handleCellClicked.bind(this) } gameMode={ this.state.game_mode }/>
         <style jsx>{`
           .appContainer {
             border-radius: 2px;

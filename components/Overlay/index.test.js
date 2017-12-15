@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../config/setupTests'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import sinon from 'sinon'
 import Overlay from '.'
 
@@ -8,11 +8,10 @@ describe('Overlay', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(<Overlay />)
+    wrapper = mount(<Overlay />)
   })
 
-  describe('text', () => {
-    it('contains title', () => {
+  describe('text', () => { it('contains title', () => {
       expect(wrapper.text()).toContain('Tic Tac Toe')
     })
 
@@ -40,9 +39,14 @@ describe('Overlay', () => {
       wrapper.setProps({ handleClick: stub })
     })
 
-    it('delegates to handleClick prop', () => {
-      wrapper.instance().handleClick()
-      expect(stub.calledOnce).toBe(true)
+    it('clicking notakto game calls the handleClick with notakto', () => {
+      wrapper.find({name: 'Notakto game'}).simulate('click')
+      expect(stub.calledWith('notakto')).toBe(true)
+    })
+
+    it('clicking original game calls the handleClick with original', () => {
+      wrapper.find({name: 'Original game'}).simulate('click')
+      expect(stub.calledWith('original')).toBe(true)
     })
   })
 })
