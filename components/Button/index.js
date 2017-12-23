@@ -1,11 +1,22 @@
 import React from 'react'
-import { func, string } from 'prop-types'
+import { func, number, string } from 'prop-types'
+
+const NOOP = (e) => e
 
 export default class Button extends React.Component {
   static propTypes = {
-    name: string,
     gameMode: string,
     handleClick: func,
+    handleMouseEnter: func,
+    handleMouseLeave: func,
+    index: number,
+    name: string,
+  }
+
+  static defaultProps = {
+    handleClick: NOOP,
+    handleMouseEnter: NOOP,
+    handleMouseLeave: NOOP,
   }
 
   handleClick() {
@@ -13,9 +24,19 @@ export default class Button extends React.Component {
     this.props.handleClick(gameMode)
   }
 
+  handleMouseEnter() {
+    const index = this.props.index
+    this.props.handleMouseEnter(index)
+  }
+
+  handleMouseLeave() {
+    const index = this.props.index
+    this.props.handleMouseLeave(index)
+  }
+
   render() {
     return(
-      <a className="btn" onClick={ this.handleClick.bind(this) }>
+      <a className="btn" onClick={ this.handleClick.bind(this) } onMouseEnter={ this.handleMouseEnter.bind(this) } onMouseLeave={ this.handleMouseLeave.bind(this) }>
         {this.props.name}
         <style jsx>{`
           .btn {
