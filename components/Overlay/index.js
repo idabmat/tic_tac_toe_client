@@ -19,16 +19,19 @@ export default class Overlay extends React.Component {
     this.state = {
       buttons: [
         {
-          handleClick: this.handleClick.bind(this),
           gameMode: 'original',
+          handleClick: this.handleClick.bind(this),
+          index: 0,
           name: 'Original Game'
         }, {
-          handleClick: this.handleClick.bind(this),
           gameMode: 'notakto',
+          handleClick: this.handleClick.bind(this),
+          index: 1,
           name: 'Notakto Game'
         }, {
-          handleClick: this.handleClick.bind(this),
           gameMode: 'misere',
+          handleClick: this.handleClick.bind(this),
+          index: 2,
           name: 'Misere Game'
         }
       ]

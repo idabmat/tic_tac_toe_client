@@ -15,15 +15,13 @@ export default class ButtonGroup extends React.Component {
 
   renderButtons() {
     return this.props.buttons.map(
-      (button, index) => {
-        return this.renderButton(button, index)
-      }
+      (button) => this.renderButton(button)
     )
   }
 
-  renderButton(button, index) {
+  renderButton(button) {
     return <Button
-      key={ index }
+      key={ button.index }
       handleClick={ button.handleClick }
       gameMode={ button.gameMode }
       name={ button.name }
