@@ -57,7 +57,8 @@ describe('App', () => {
           [null, null     , null],
           [null, 'player1', null],
           [null, null     , null]
-        ]
+        ],
+        gameMode: null
       }
       wrapper.instance().updateState(gameState)
       expect(wrapper.state()).toEqual(gameState)

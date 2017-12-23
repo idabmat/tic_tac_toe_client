@@ -40,12 +40,12 @@ describe('Overlay', () => {
     })
 
     it('clicking notakto game calls the handleClick with notakto', () => {
-      wrapper.find({name: 'Notakto game'}).simulate('click')
+      wrapper.find({name: 'Notakto Game'}).simulate('click')
       expect(stub.calledWith('notakto')).toBe(true)
     })
 
     it('clicking original game calls the handleClick with original', () => {
-      wrapper.find({name: 'Original game'}).simulate('click')
+      wrapper.find({name: 'Original Game'}).simulate('click')
       expect(stub.calledWith('original')).toBe(true)
     })
   })
