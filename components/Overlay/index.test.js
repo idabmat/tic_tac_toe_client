@@ -11,7 +11,8 @@ describe('Overlay', () => {
     wrapper = mount(<Overlay />)
   })
 
-  describe('text', () => { it('contains title', () => {
+  describe('text', () => {
+    it('contains title', () => {
       expect(wrapper.text()).toContain('Tic Tac Toe')
     })
 

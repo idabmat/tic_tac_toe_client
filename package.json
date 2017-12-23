@@ -1,7 +1,7 @@
 {
   "name": "react-client",
   "description": "TicTacToe react client",
-  "licence": "UNLICENSED",
+  "license": "UNLICENSED",
   "engines": {
     "node": "6.11.4",
     "yarn": "1.2.1"

@@ -41,11 +41,11 @@ export default class Overlay extends React.Component {
 
   renderWinner() {
     if (this.props.winner === 'draw') {
-      return <p>It's a tie.</p>
+      return <p>{ 'It\'s a tie.' }</p>
     } else if (this.props.winner === 'computer') {
-      return <p>You lost.</p>
+      return <p>{ 'You lost.' }</p>
     } else if (this.props.winner === 'player1') {
-      return <p>You won!</p>
+      return <p>{ 'You won!' }</p>
     }
   }
 

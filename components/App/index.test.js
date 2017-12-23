@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import App from '.'
 
 describe('App', () => {
-  let wrapper, mock
+  let wrapper
 
   beforeEach(() => {
     wrapper = shallow(<App />)

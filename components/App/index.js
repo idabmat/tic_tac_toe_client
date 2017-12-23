@@ -54,7 +54,7 @@ export default class App extends React.Component {
 
   renderOverlay() {
     const winner = this.state.winner
-    if (typeof winner === "undefined") {
+    if (typeof winner === 'undefined') {
       return <Overlay handleClick={this.startGame.bind(this)} />
     } else if (winner) {
       return <Overlay handleClick={this.newGame.bind(this)} winner={winner}/>
