@@ -43,6 +43,11 @@ export default class Overlay extends React.Component {
           gameMode="notakto"
           name="Notakto game"
         />
+        <Button
+          handleClick={this.handleClick.bind(this)}
+          gameMode="misere"
+          name="Misere game"
+        />
         <style jsx>{`
           .overlay {
             position: fixed;
