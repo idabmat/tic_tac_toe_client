@@ -1,6 +1,6 @@
 import React from 'react'
 import { func, string } from 'prop-types'
-import Button from '../Button'
+import ButtonGroup from '../ButtonGroup'
 
 const NOOP = (e) => e
 
@@ -12,6 +12,27 @@ export default class Overlay extends React.Component {
 
   static defaultProps = {
     handleClick: NOOP
+  }
+
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      buttons: [
+        {
+          handleClick: this.handleClick.bind(this),
+          gameMode: 'original',
+          name: 'Original Game'
+        }, {
+          handleClick: this.handleClick.bind(this),
+          gameMode: 'notakto',
+          name: 'Notakto Game'
+        }, {
+          handleClick: this.handleClick.bind(this),
+          gameMode: 'misere',
+          name: 'Misere Game'
+        }
+      ]
+    }
   }
 
   handleClick(gameMode) {
@@ -33,21 +54,7 @@ export default class Overlay extends React.Component {
       <div className="overlay">
         <h1>Tic Tac Toe</h1>
         {this.renderWinner()}
-        <Button
-          handleClick={this.handleClick.bind(this)}
-          gameMode="original"
-          name="Original game"
-        />
-        <Button
-          handleClick={this.handleClick.bind(this)}
-          gameMode="notakto"
-          name="Notakto game"
-        />
-        <Button
-          handleClick={this.handleClick.bind(this)}
-          gameMode="misere"
-          name="Misere game"
-        />
+        <ButtonGroup buttons={ this.state.buttons } />
         <style jsx>{`
           .overlay {
             position: fixed;

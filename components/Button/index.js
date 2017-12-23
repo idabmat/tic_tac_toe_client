@@ -20,8 +20,9 @@ export default class Button extends React.Component {
           .btn {
             background-color: #546e7a;
             color: #fff;
-            padding: 20px;
             cursor: pointer;
+            padding: 20px;
+            text-align: center;
             transition: all 0.3s cubic-bezier(.25,.8,.25,1);
           }
           .btn:hover {
