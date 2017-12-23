@@ -13,7 +13,7 @@ export default class Cell extends React.Component {
   renderContent() {
     const player = this.props.player
     const gameMode = this.props.gameMode
-    if (player === 'player1' || gameMode === 'notakto') {
+    if (player === 'player1' || (player && gameMode === 'notakto')) {
       return 'X'
     } else if (player === 'computer') {
       return 'O'
