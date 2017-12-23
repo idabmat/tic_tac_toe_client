@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../config/setupTests'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import Grid from '.'

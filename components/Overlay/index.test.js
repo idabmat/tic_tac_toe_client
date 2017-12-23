@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../config/setupTests'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
 import Overlay from '.'

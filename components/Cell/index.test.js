@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../config/setupTests'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import Cell from '.'
