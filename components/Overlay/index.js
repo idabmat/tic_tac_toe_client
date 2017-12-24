@@ -1,6 +1,8 @@
 import React from 'react'
 import { func, string } from 'prop-types'
+import { find } from 'lodash'
 import ButtonGroup from '../ButtonGroup'
+import GameDescription from '../GameDescription'
 
 const NOOP = (e) => e
 
@@ -19,18 +21,21 @@ export default class Overlay extends React.Component {
     this.state = {
       buttons: [
         {
+          active: false,
+          description: 'You play as X, computer plays as O. First one to mark 3 cells in a row, column, or diagonal wins.',
           gameMode: 'original',
-          handleClick: this.handleClick.bind(this),
           index: 0,
           name: 'Original Game'
         }, {
+          active: false,
+          description: 'You and computer both play as X. First one to mark 3 cells in a row, column, or diagonal wins.',
           gameMode: 'notakto',
-          handleClick: this.handleClick.bind(this),
           index: 1,
           name: 'Notakto Game'
         }, {
+          active: false,
+          description: 'You play as X, computer plays as O. First one to mark 3 cells in a row, column, or diagonal loses.',
           gameMode: 'misere',
-          handleClick: this.handleClick.bind(this),
           index: 2,
           name: 'Misere Game'
         }
@@ -40,6 +45,39 @@ export default class Overlay extends React.Component {
 
   handleClick(gameMode) {
     this.props.handleClick(gameMode)
+  }
+
+  handleMouseEnter(index) {
+    const newButtons = this.state.buttons.map((button) => {
+      if (button.index != index) {
+        return button
+      }
+      return {...button, active: true}
+    })
+    this.setState({ buttons: newButtons })
+  }
+
+  handleMouseLeave(index) {
+    const newButtons = this.state.buttons.map((button) => {
+      if (button.index != index) {
+        return button
+      }
+      return {...button, active: false}
+    })
+    this.setState({ buttons: newButtons })
+  }
+
+  activeButton() {
+    return find(this.state.buttons, (button) => {
+      return button.active
+    })
+  }
+
+  activeDescription() {
+    const activeButton = this.activeButton()
+    if (activeButton) {
+      return activeButton.description
+    }
   }
 
   renderWinner() {
@@ -52,12 +90,20 @@ export default class Overlay extends React.Component {
     }
   }
 
+  renderDescription() {
+    const description = this.activeDescription()
+    if (description) {
+      return <GameDescription description={ description } />
+    }
+  }
+
   render() {
     return(
       <div className="overlay">
         <h1>Tic Tac Toe</h1>
-        {this.renderWinner()}
-        <ButtonGroup buttons={ this.state.buttons } />
+        { this.renderWinner() }
+        <ButtonGroup buttons={ this.state.buttons } handleClick={ this.handleClick.bind(this) } handleMouseEnter={ this.handleMouseEnter.bind(this) } handleMouseLeave={ this.handleMouseLeave.bind(this) } />
+        { this.renderDescription() }
         <style jsx>{`
           .overlay {
             position: fixed;
