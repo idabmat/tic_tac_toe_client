@@ -1,32 +1,44 @@
 import React from 'react'
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import Button from '../Button'
+
+const NOOP = (e) => e
 
 export default class ButtonGroup extends React.Component {
   static propTypes = {
     buttons: arrayOf(
       shape({
-        handleClick: func,
         gameMode: string,
+        index: number,
         name: string,
       })
-    )
+    ),
+    handleClick: func,
+    handleMouseEnter: func,
+    handleMouseLeave: func,
+  }
+
+  static defaultProps = {
+    handleClick: NOOP,
+    handleMouseEnter: NOOP,
+    handleMouseLeave: NOOP,
   }
 
   renderButtons() {
     return this.props.buttons.map(
-      (button, index) => {
-        return this.renderButton(button, index)
-      }
+      (button) => this.renderButton(button)
     )
   }
 
-  renderButton(button, index) {
+  renderButton(button) {
     return <Button
-      key={ index }
-      handleClick={ button.handleClick }
+      key={ button.index }
       gameMode={ button.gameMode }
+      handleClick={ this.props.handleClick.bind(this) }
+      handleMouseEnter={ this.props.handleMouseEnter.bind(this) }
+      handleMouseLeave={ this.props.handleMouseLeave.bind(this) }
       name={ button.name }
+      index={ button.index }
     />
   }
 
