@@ -16,7 +16,10 @@
     "build-storybook": "build-storybook"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/config/shim.js", "<rootDir>/config/setup.js"]
+    "setupFiles": [
+      "<rootDir>/config/shim.js",
+      "<rootDir>/config/setup.js"
+    ]
   },
   "dependencies": {
     "classnames": "^2.2.5",
