@@ -1,20 +1,19 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import sinon from 'sinon'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Grid from '.'
 
 describe('Grid', () => {
   describe('cellClicked', () => {
     it('calls the cellClicked prop with the position', () => {
-      const stub = sinon.stub()
+      const stub = jest.fn()
       const board = [
         [null, null, null],
         [null, null, null],
         [null, null, null]
       ]
-      const wrapper = shallow(<Grid board={ board } cellClicked={ stub } />)
-      wrapper.instance().cellClicked(3)
-      expect(stub.calledWith(3))
+      const { container } = render(<Grid board={ board } cellClicked={ stub } />)
+      fireEvent.click(container.querySelector('.cell:nth-child(3)'))
+      expect(stub).toHaveBeenCalledWith(3)
     })
   })
 
@@ -25,8 +24,8 @@ describe('Grid', () => {
         [null, null, null],
         [null, null, null]
       ]
-      const wrapper = mount(<Grid board={board} />)
-      expect(wrapper.find('Cell').length).toEqual(9)
+      const { container } = render(<Grid board={board} />)
+      expect(container.querySelectorAll('.cell').length).toEqual(9)
     })
 
     it('passes the player to the cell', () => {
@@ -35,8 +34,8 @@ describe('Grid', () => {
         [null, null, null],
         [null, null, null]
       ]
-      const wrapper = mount(<Grid board={board} />)
-      expect(wrapper.find('Cell').first().props().player).toEqual('player1')
+      render(<Grid board={board} />)
+      expect(screen.findByText('X'))
     })
   })
 })

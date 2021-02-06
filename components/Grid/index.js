@@ -1,51 +1,36 @@
 import React from 'react'
-import { array, func, string } from 'prop-types'
 import Cell from '../Cell'
 
-export default class Grid extends React.Component {
-
-  static propTypes = {
-    board: array,
-    cellClicked: func,
-    gameMode: string
+const Grid = ({ board, gameMode, cellClicked }) => {
+  const renderRows = () => {
+    return board.map((row, rowIndex) => renderCells(row, rowIndex))
   }
 
-  renderRows() {
-    return this.props.board.map((row, rowIndex) => this.renderCells(row, rowIndex))
-  }
-
-  renderCells(row, rowIndex) {
+  const renderCells = (row, rowIndex)  => {
     return row.map((cell, columnIndex) => {
-      const position = this.positionFromIndexes(rowIndex, columnIndex)
+      const position = positionFromIndexes(rowIndex, columnIndex)
       return (
         <Cell
           key={ position }
           player={ cell }
           position={ position }
-          handleClick={ this.cellClicked.bind(this) }
-          gameMode={ this.props.gameMode }
+          onClick={ cellClicked }
+          gameMode={ gameMode }
         />
       )
     })
   }
 
-  cellClicked(position) {
-    this.props.cellClicked(position)
+  const positionFromIndexes = (rowIndex, columnIndex) => {
+    return rowIndex * size() + columnIndex + 1
   }
 
-  positionFromIndexes(rowIndex, columnIndex) {
-    return rowIndex * this.size() + columnIndex + 1
-  }
+  const size = () => board.length
 
-  size() {
-    return this.props.board.length
-  }
-
-  render() {
-    return (
-      <div className="grid">
-        { this.renderRows() }
-        <style jsx>{`
+  return (
+    <div className="grid">
+      { renderRows() }
+      <style jsx>{`
           .grid {
             height: 300px;
             width: 300px;
@@ -62,7 +47,7 @@ export default class Grid extends React.Component {
             }
           }
         `}</style>
-      </div>
-    )
-  }
+    </div>
+  )
 }
+export default Grid

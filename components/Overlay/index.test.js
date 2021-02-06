@@ -1,133 +1,65 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import sinon from 'sinon'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Overlay from '.'
 
 describe('Overlay', () => {
-  let wrapper
-
-  beforeEach(() => {
-    wrapper = mount(<Overlay />)
-  })
-
   describe('text', () => {
     it('contains title', () => {
-      expect(wrapper.text()).toContain('Tic Tac Toe')
+      render(<Overlay />)
+      expect(screen.getByText('Tic Tac Toe'))
     })
 
     it('draw', () => {
-      wrapper.setProps({ winner: 'draw' })
-      expect(wrapper.text()).toContain('It\'s a tie.')
+      render(<Overlay winner='draw' />)
+      expect(screen.getByText('It\'s a tie.'))
     })
 
     it('player won', () => {
-      wrapper.setProps({ winner: 'player1' })
-      expect(wrapper.text()).toContain('You won!')
+      render(<Overlay winner='player1' />)
+      expect(screen.getByText('You won!'))
     })
 
     it('computer won', () => {
-      wrapper.setProps({ winner: 'computer' })
-      expect(wrapper.text()).toContain('You lost.')
+      render(<Overlay winner='computer' />)
+      expect(screen.getByText('You lost.'))
     })
   })
 
-  describe('handleClick', () => {
-    let stub
-
-    beforeEach(() => {
-      stub = sinon.stub()
-      wrapper.setProps({ handleClick: stub })
+  describe('clicking a button', () => {
+    it('starts a notakto game', () => {
+      const stub = jest.fn()
+      render(<Overlay onClick={stub} />)
+      fireEvent.click(screen.getByText('Notakto Game'))
+      expect(stub).toHaveBeenCalledWith('notakto')
     })
 
-    describe('when clicking the notakto game', () => {
-      beforeEach(() => {
-        wrapper.find({name: 'Notakto Game'}).simulate('click')
-      })
-
-      it('calls the handleClick with notakto', () => {
-        expect(stub.calledWith('notakto')).toBe(true)
-      })
-    })
-
-
-    describe('when clicking the original game', () => {
-      beforeEach(() => {
-        wrapper.find({name: 'Original Game'}).simulate('click')
-      })
-
-      it('calls the handleClick with original', () => {
-        expect(stub.calledWith('original')).toBe(true)
-      })
+    it('starts an original game', () => {
+      const stub = jest.fn()
+      render(<Overlay onClick={stub} />)
+      fireEvent.click(screen.getByText('Original Game'))
+      expect(stub).toHaveBeenCalledWith('original')
     })
   })
 
-  describe('button active property', () => {
-    let index
-
-    beforeEach(() => {
-      index = 0
+  describe('hovering over a button', () => {
+    it('does not show game description at first', () => {
+      render(<Overlay />)
+      expect(screen.queryByText('You play as X, computer plays as O. First one to mark 3 cells in a row, column, or diagonal wins.')).toBeNull()
     })
 
-    it('defaults to false', () => {
-      expect(wrapper.state().buttons[index].active).toBe(false)
+    it('shows game description when button is hovered', () => {
+      render(<Overlay />)
+      const gameButton = screen.getByText('Original Game')
+      fireEvent.mouseEnter(gameButton)
+      expect(screen.getByText('You play as X, computer plays as O. First one to mark 3 cells in a row, column, or diagonal wins.'))
     })
 
-    describe('when mouse enters a button', () => {
-      beforeEach(() => {
-        wrapper.instance().handleMouseEnter(index)
-      })
-
-      it('sets it as active', () => {
-        expect(wrapper.state().buttons[index].active).toBe(true)
-      })
-    })
-
-    describe('when mouse leaves a button', () => {
-      beforeEach(() => {
-        wrapper.instance().handleMouseEnter(index)
-        wrapper.instance().handleMouseLeave(index)
-      })
-
-      it('sets a button as active', () => {
-        expect(wrapper.state().buttons[index].active).toBe(false)
-      })
-    })
-  })
-
-  describe('when first button is active', () => {
-    beforeEach(() => {
-      wrapper.instance().handleMouseEnter(0)
-    })
-
-    it('activeButton should return the first one', () => {
-      const activeButton = wrapper.state().buttons[0]
-      expect(wrapper.instance().activeButton()).toEqual(activeButton)
-    })
-
-    it('activeDescription should be the one for the original game', () => {
-      const firstDescription = wrapper.state().buttons[0].description
-      expect(wrapper.instance().activeDescription()).toEqual(firstDescription)
-    })
-
-    it('should contain the game description', () => {
-      const firstDescription = wrapper.state().buttons[0].description
-      expect(wrapper.text()).toContain(firstDescription)
-    })
-  })
-
-  describe('when second button is active', () => {
-    beforeEach(() => {
-      wrapper.instance().handleMouseEnter(1)
-    })
-
-    it('activeButton should return the second one', () => {
-      const activeButton = wrapper.state().buttons[1]
-      expect(wrapper.instance().activeButton()).toEqual(activeButton)
-    })
-
-    it('activeDescription should be the one for the notakto game', () => {
-      const secondDescription = wrapper.state().buttons[1].description
-      expect(wrapper.instance().activeDescription()).toEqual(secondDescription)
+    it('hides game description when button is hovered out', () => {
+      render(<Overlay />)
+      const gameButton = screen.getByText('Original Game')
+      fireEvent.mouseEnter(gameButton)
+      fireEvent.mouseLeave(gameButton)
+      expect(screen.queryByText('You play as X, computer plays as O. First one to mark 3 cells in a row, column, or diagonal wins.')).toBeNull()
     })
   })
 })
