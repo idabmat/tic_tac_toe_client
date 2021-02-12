@@ -5,7 +5,7 @@ module.exports = {
       plugins: ['styled-jsx/babel']
     },
     development: {
-      plugins: ['styled-jsx/babel']
+      plugins: ['styled-jsx/babel', "@babel/plugin-transform-runtime"]
     },
     test: {
       plugins: ['styled-jsx/babel-test']
