@@ -1,45 +1,31 @@
 import React from 'react'
-import { func, number, string } from 'prop-types'
 import classnames from 'classnames'
 
-export default class Cell extends React.Component {
-  static propTypes = {
-    gameMode: string,
-    player: string,
-    handleClick: func,
-    position: number,
-  }
-
-  renderContent() {
-    const player = this.props.player
-    const gameMode = this.props.gameMode
-    if (player === 'player1' || (player && gameMode === 'notakto')) {
-      return 'X'
-    } else if (player === 'computer') {
-      return 'O'
-    }
+const Cell = ({ player, gameMode, position, onClick }) => {
+  const renderContent = () => {
+    if (player && gameMode === 'notakto') return 'X'
+    if (player === 'player1') return 'X'
+    if (player === 'computer') return 'O'
     return ''
   }
 
-  handleClick() {
-    const position = this.props.position
-    this.props.handleClick(position)
+  const handleClick = () => {
+    onClick(position)
   }
 
-  styles() {
+  const styles = () => {
     return classnames({
       cell: true,
-      clicked: this.props.player,
-      computer: this.props.player === 'computer',
-      player: this.props.player === 'player1'
+      clicked: player,
+      computer: player === 'computer',
+      player: player === 'player1'
     })
   }
 
-  render() {
-    return (
-      <div className={this.styles()} onClick={() => this.handleClick()}>
-        { this.renderContent() }
-        <style jsx>{`
+  return (
+    <div className={styles()} onClick={handleClick}>
+      { renderContent() }
+      <style jsx>{`
           .cell {
             border-radius: 2px;
             color: #000;
@@ -73,6 +59,7 @@ export default class Cell extends React.Component {
           }
         `}</style>
       </div>
-    )
-  }
+  )
 }
+
+export default Cell
