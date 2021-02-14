@@ -1,13 +1,13 @@
 import React from 'react'
-import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript, DocumentContext } from 'next/document'
 import flush from 'styled-jsx/server'
 
 export default class CustomDocument extends Document {
-  static getInitialProps ({renderPage}) {
-    const {html, head, errorHtml, chunks} = renderPage()
+  static async getInitialProps (ctx : DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx)
     const styles = flush()
 
-    return {html, head, errorHtml, chunks, styles}
+    return {...initialProps, styles}
   }
 
   render() {

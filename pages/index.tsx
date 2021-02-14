@@ -3,7 +3,7 @@ import App from '../components/App'
 import { Socket } from 'phoenix'
 
 const HomePage = () => {
-  const [gameChannel, setGameChannel] = useState()
+  const [gameChannel, setGameChannel] = useState(null)
   const [game, setGame] = useState({
     board: [
       [null, null, null],

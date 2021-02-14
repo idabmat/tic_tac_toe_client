@@ -4,7 +4,7 @@ import Overlay from '../Overlay'
 
 const App = ({ board, gameMode, winner, onCellClicked, newGame }) => {
   const renderOverlay = () => {
-    if (typeof winner === 'undefined') return <Overlay onClick={newGame} />
+    if (typeof winner === 'undefined') return <Overlay onClick={newGame} winner={winner}/>
     if (winner) return <Overlay onClick={newGame} winner={winner} />
   }
 
