@@ -2,52 +2,16 @@ import React, { useState } from 'react'
 import Grid from '../Grid'
 import Overlay from '../Overlay'
 
-const App = ({ channel }) => {
-  const [game, setGame] = useState({
-    board:[
-      [null, null, null],
-      [null, null, null],
-      [null, null, null]
-    ],
-    gameMode: null
-  })
-
-
-  const startGame = (mode) => {
-    channel.push('new_game', mode)
-    channel.on('game_state', updateGame)
-    channel.push('get_state', {})
-  }
-
-  const newGame = (mode) => {
-    channel.push('new_game', mode)
-  }
-
-  const updateGame = (newGameState) => {
-    setGame(newGameState)
-    if (newGameState.current_player === 'computer') {
-      computerMove()
-    }
-  }
-
-  const computerMove = () => {
-    channel.push('computer_move', {})
-  }
-
-  const handleCellClicked = (position) => {
-    channel.push('player_move', position)
-  }
-
+const App = ({ board, gameMode, winner, onCellClicked, newGame }) => {
   const renderOverlay = () => {
-    const winner = game.winner
-    if (typeof winner === 'undefined') return <Overlay onClick={startGame} />
+    if (typeof winner === 'undefined') return <Overlay onClick={newGame} />
     if (winner) return <Overlay onClick={newGame} winner={winner} />
   }
 
   return (
     <div className="appContainer">
       {renderOverlay()}
-      <Grid board={game.board} cellClicked={handleCellClicked} gameMode={game.game_mode} />
+      <Grid board={board} cellClicked={onCellClicked} gameMode={gameMode} />
       <style jsx>{`
         .appContainer {
           border-radius: 2px;
