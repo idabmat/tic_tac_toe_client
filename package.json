@@ -10,7 +10,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "classnames": "^2.2.5",
