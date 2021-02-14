@@ -40,18 +40,32 @@ const HomePage = () => {
 
   const updateGame = (newGameState) => {
     setGame(newGameState)
-    if (newGameState.current_player === 'computer') {
+    if (!newGameState.winner && newGameState.current_player === 'computer') {
       computerMove()
     }
   }
 
-  return <App
-    board={game.board}
-    winner={game.winner}
-    gameMode={game.gameMode}
-    onCellClicked={playerMove}
-    newGame={newGame}
-  />
+  return (
+    <>
+      <App
+        board={game.board}
+        winner={game.winner}
+        gameMode={game.gameMode}
+        onCellClicked={playerMove}
+        newGame={newGame}
+      />
+      <style jsx global>{`
+        * {
+          box-sizing: border-box;
+        }
+        body {
+          background-color: #819ca9;
+          margin: 0;
+          font-family: 'Roboto', sans-serif;
+        }
+      `}</style>
+    </>
+  )
 }
 
 export default HomePage

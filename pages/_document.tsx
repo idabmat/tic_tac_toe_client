@@ -12,20 +12,10 @@ export default class CustomDocument extends Document {
 
   render() {
     return(
-      <Html>
+      <Html lang='en'>
         <Head>
           <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
-          <style jsx global>{`
-            * {
-              box-sizing: border-box;
-            }
-            body {
-              background-color: #819ca9;
-              margin: 0;
-              font-family: 'Roboto', sans-serif;
-            }
-          `}</style>
         </Head>
         <body>
           <Main />
