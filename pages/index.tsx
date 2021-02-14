@@ -10,7 +10,8 @@ const HomePage = () => {
       [null, null, null],
       [null, null, null]
     ],
-    gameMode: null
+    gameMode: null,
+    winner: undefined
   })
 
   useEffect(() => {
