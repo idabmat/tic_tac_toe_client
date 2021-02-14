@@ -11,7 +11,7 @@ const HomePage = () => {
       [null, null, null]
     ],
     gameMode: null,
-    winner: undefined
+    winner: 'no'
   })
 
   useEffect(() => {
@@ -20,7 +20,6 @@ const HomePage = () => {
     let channel = socket.channel('game:new', {})
     channel.join()
     setGameChannel(channel)
-    channel.on('game_state', updateGame)
     return () => {
       channel.leave()
     }
@@ -28,6 +27,7 @@ const HomePage = () => {
 
   const newGame = (mode) => {
     gameChannel.push('new_game', mode)
+    gameChannel.on('game_state', updateGame)
   }
 
   const computerMove = () => {
