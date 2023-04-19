@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "next": "^10.0.6",
+    "next": "^10.2.3",
     "phoenix": "^1.5.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
